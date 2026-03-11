@@ -1,0 +1,114 @@
+1. The Data Model (Input Structure)
+
+This part defines what data the API expects.
+
+from pydantic import BaseModel
+
+class Person(BaseModel):
+    age: int
+    salary: float
+
+What this means:
+
+The API expects input like this:
+
+{
+ "age": 25,
+ "salary": 40000
+}
+
+FastAPI uses Pydantic to:
+
+validate data
+
+convert JSON into Python objects
+
+So inside the API, this JSON becomes:
+
+person.age
+person.salary
+
+Example:
+
+person.age = 25
+person.salary = 40000
+2. The API Endpoint
+
+This part defines the API route.
+
+@app.post("/predict")
+def predict_risk(person: Person):
+
+Meaning:
+
+POST request → /predict
+
+The API expects a Person object.
+
+So the user sends:
+
+{
+ "age": 25,
+ "salary": 40000
+}
+
+FastAPI converts it automatically.
+
+3. The "Fake Model"
+
+This line is NOT machine learning.
+
+if person.salary > 50000:
+    risk = "Low"
+else:
+    risk = "High"
+
+This is just rule-based logic.
+
+Example:
+
+Salary = 40,000
+
+40000 > 50000 → False
+
+So output:
+
+High risk
+
+If salary = 80,000
+
+80000 > 50000 → True
+
+Output:
+
+Low risk
+
+We only did this to simulate a model prediction.
+
+4. The API Response
+
+The API returns:
+
+return {
+    "age": person.age,
+    "salary": person.salary,
+    "risk_prediction": risk
+}
+
+Which becomes this JSON response:
+
+{
+ "age": 25,
+ "salary": 40000,
+ "risk_prediction": "High"
+}
+
+So the full pipeline becomes:
+
+User sends JSON
+      ↓
+API receives data
+      ↓
+Model logic runs
+      ↓
+Prediction returned

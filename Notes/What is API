@@ -1,0 +1,57 @@
+=> Understand HTTP (Foundation of APIs)
+
+Client → HTTP Request → Server
+Server → HTTP Response → Client
+
+Example:
+
+Client sends request:
+
+GET /hello
+
+Server returns response:
+
+200 OK
+Hello World
+
+=> Key components of HTTP request:
+
+Method
+URL
+Headers
+Body
+
+Example request:
+
+POST /login
+Content-Type: application/json
+
+Body:
+
+{
+ "username":"ashish",
+ "password":"123"
+}
+
+Server responds:
+
+{
+ "token":"abc123"
+}
+
+
+=> pratice 1:
+
+pip install fastapi uvicorn
+
+main.py
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"message": "Hello Ashish, your API is working"}
+
+

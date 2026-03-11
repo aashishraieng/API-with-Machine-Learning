@@ -1,0 +1,102 @@
+=> Types of Parameters in APIs
+
+There are three main ways APIs receive data.
+
+1️⃣ Path Parameters
+
+Example:
+
+/square/5
+
+Here 5 is input to the API.
+
+2️⃣ Query Parameters
+
+Example:
+
+/search?name=ashish
+3️⃣ Request Body
+
+Used in POST requests
+
+Example:
+
+{
+ "name": "Ashish",
+ "age": 21
+}
+
+We will use these later when sending ML data.
+
+
+
+
+=> path Parameters
+# from fastapi import FastAPI
+
+# app = FastAPI()
+
+# @app.get("/")
+# def home():
+#     return {"message": "API running"}
+
+# Path parameter example
+# @app.get("/square/{number}")
+# def square_number(number: int):
+#     result = number * number
+#     return {"number": number, "square": result}
+
+
+
+=> query parameter
+
+Structure:
+
+endpoint?parameter=value
+
+# @app.get("/add")
+# def add_numbers(a: int, b: int):
+#     result = a + b
+#     return {"a": a, "b": b, "sum": result}
+
+
+=> Request Body (Most Important)
+
+Now we move to POST requests, which send data to the API.
+
+Example:
+
+Client sends:
+
+{
+ "age": 25,
+ "salary": 40000
+}
+
+Server processes it.
+
+
+=> Practical 4 — First ML-style API
+
+# from pydantic import BaseModel
+
+# class Person(BaseModel):
+#     age: int
+#     salary: float
+
+# @app.post("/predict")
+# def predict_risk(person: Person):
+
+#     # simple fake "ML model"
+#     if person.salary > 50000:
+#         risk = "Low"
+#     else:
+#         risk = "High"
+
+#     return {
+#         "age": person.age,
+#         "salary": person.salary,
+#         "risk_prediction": risk
+#     }
+
+
